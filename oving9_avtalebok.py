@@ -22,19 +22,28 @@ class Avtale:
     def ny_avtale(self):
         self.tittel = input("Tittel på avtalen: ")
         self.sted = input("Sted: ")
-        self.starttidspunkt = input("Avtalen starter: ")
-        self.varighet = input("Avtalen varer: ")
+      
+        while True:
+            try:
+                self.starttidspunkt = datetime.fromisoformat(input("Sett in en tid på formen ÅÅÅÅ-MM-DD TT:MM:SS: "))
+                break
+            except ValueError:
+                print("Må være et tidsobjekt på formen ÅÅÅÅ-MM-DD TT:MM:SS")  
+        
+        while True:
+            try:
+                self.varighet = int(input("Varigheten i minutter til møtet (heltall): "))
+                break
+            except ValueError:
+                print("Må være et heltall:")
+                
         return self.tittel, self.sted, self.starttidspunkt, self.varighet
         
         
-        
-        
-        
-        
-
 
 if __name__ == "__main__":   
     avtale = Avtale()
     avtale.ny_avtale()
     print(avtale)
+    
     
