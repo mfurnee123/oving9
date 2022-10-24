@@ -36,8 +36,9 @@ class Avtale:
                 break
             except ValueError:
                 print("Må være et heltall:")
-                
+        #avtale_objekt = [self.tittel, self.sted, self.starttidspunkt, self.varighet] #returner ett objekt?
         return self.tittel, self.sted, self.starttidspunkt, self.varighet
+        #return avtale_objekt
         
         
 
