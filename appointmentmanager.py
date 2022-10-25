@@ -22,7 +22,7 @@ class AppointmentManager:
     def writeAppointments(self):
         raise NotImplementedError
 
-    def listAppointments(self):
+    def listAppointments(self, heading=None):
         raise NotImplementedError
     
     def editAppointment(self):
