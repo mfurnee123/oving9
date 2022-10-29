@@ -40,12 +40,8 @@ class AppointmentManager:
         Creates a new appointment from user input from STDIN.
         """
         a = Avtale()
-        a.ny_avtale()
-        #open file in write mode
-        with open("avtale_bok.txt", "a", encoding="UTF8") as fil:            
-            fil.write(f"{a.tittel};{a.starttidspunkt};{a.varighet};{a.sted}")           
-                #En indeks på en linje                
-        # The ny_avtale method is an instance method of the Avtale class. This is not intuitive, and should preferably be moved here.         
+        a.ny_avtale()              
+        # The ny_avtale method is an instance method of the Avtale class. This is not intuitive, and should preferably be moved here.
         self.appointments.append(a)
 #i
     def readAppointments(self):
@@ -64,8 +60,19 @@ class AppointmentManager:
                 linje = fil.readline()                    
                 avtale_fil.append(Avtale(tittel, sted, starttidspunkt, varighet))                     
         return avtale_fil     
-        
-    def writeAppointments(self, dato_input=None):
+ 
+#ok       
+    def writeAppointments(self):
+        #open file in write mode
+        with open("avtale_bok.txt", "a", encoding="UTF8") as fil:            
+            for a in self.appointments:
+                fil.write(f"{a.tittel};{a.starttidspunkt};{a.varighet};{a.sted}\n")           
+        print("Avtaler er skrevet inn i Avtale-fil")        
+                #En indeks på en linje                
+
+                
+#ok        
+    def findAppointmentByDate(self, dato_input=None):        
         if dato_input == None:
             dato_input = input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: ")        
         liste = self.readAppointments()
@@ -77,6 +84,7 @@ class AppointmentManager:
             if dato_input == dato:
                 temp.append(i)        
         return(temp)
+
 
     def listAppointments(self, heading=None):
         raise NotImplementedError
