@@ -1,4 +1,5 @@
 from oving9_avtalebok import Avtale
+from datetime import datetime
 
 class AppointmentManager:
     def __init__(self):
@@ -58,7 +59,105 @@ class AppointmentManager:
         raise NotImplementedError
     
     def editAppointment(self):
-        raise NotImplementedError
+        # Check if there are appointments
+        if len(self.appointments) == 0:
+            print("Du har ingen avtaler.")
+            return
+        
+        # Print available appointments
+        self.listAppointments("Avtaler tilgjengelige for redigering")
+
+        print()
+        print("Skriv inn indeksen til avtalen du ønsker å redigere, -1 for å gå tilbake.")
+        print()
+
+        idx = self.__userIndex()
+
+        # Check for -1 exit code
+        if idx == -1:
+            return
+
+        print("Valgt avtale:", self.appointments[idx])
+
+        # New values
+        newTitle = None
+        newLocation = None
+        newTime = None
+        newDuration = None
+            
+
+        # Loop unit broken
+        while True:
+            print("Hva ønsker du å endre?")
+            print("0: Tittel")
+            print("1: Sted")
+            print("2: Starttidspunkt")
+            print("3: Varighet")
+            print("4: Lagre")
+            print("5: Avslutt uten å lagre")
+            # Loop until a valid input is received
+            command = None
+
+            while command == None:
+                raw = input(">")
+
+                try:
+                    command = int(raw)
+                except:
+                    print("Feil, input må være et heltall.\n")
+                    command = None
+                
+                # Validate that the number is in the correct range
+                if not (0 <= command <= 5):
+                    print("Feil, input må være et heltall mellom 0 og 5 inklusivt.\n")
+                    command = None
+          
+
+            # Saving
+            if command == 4:
+                if newTitle is not None:
+                    self.appointments[idx].tittel = newTitle
+                if newLocation is not None:
+                    self.appointments[idx].sted = newLocation
+                if newTime is not None:
+                    self.appointments[idx].starttidspunkt = newTime
+                if newDuration is not None:
+                    self.appointments[idx].varighet = newDuration
+
+                print("Avtale oppdatert.")
+                return
+            # Exit
+            elif command == 5:
+                print("Endringer forkastet.")
+                return
+            
+            # Title
+            elif command == 0:
+                newTitle = input("Ny titel på avtalen: ")
+            # Location
+            elif command == 1:
+                newLocation = input("Nytt sted til avtalen: ")
+            # Time
+            elif command == 2:
+                while True:
+                    try:
+                        newTime = datetime.fromisoformat(input("Sett inn ny tid på formen ÅÅÅÅ-MM-DD TT:MM:SS: "))
+                        break
+                    except ValueError:
+                        print("Må være et tidsobjekt på formen ÅÅÅÅ-MM-DD TT:MM:SS")
+            # Duration
+            elif command == 3:
+                while True:
+                    try:
+                        newDuration = int(input("Varigheten i minutter til møtet (heltall): "))
+                        break
+                    except ValueError:
+                        print("Må være et heltall")
+
+            print()
+            
+        
+
     
     def deleteAppointment(self):
         # Check if there are appointments
