@@ -1,4 +1,5 @@
 from oving9_avtalebok import Avtale
+from datetime import datetime
 
 class AppointmentManager:
     def __init__(self):
@@ -43,9 +44,8 @@ class AppointmentManager:
         a.ny_avtale()              
         # The ny_avtale method is an instance method of the Avtale class. This is not intuitive, and should preferably be moved here.
         self.appointments.append(a)
-#i
+
     def readAppointments(self):
-        avtale_fil = []
         with open("avtale_bok.txt", "r", encoding="UTF8") as fil:
             linje = fil.readline()
             while linje!="":                            
@@ -58,10 +58,10 @@ class AppointmentManager:
                 except ValueError:
                     varighet = None
                 linje = fil.readline()                    
-                avtale_fil.append(Avtale(tittel, sted, starttidspunkt, varighet))                     
-        return avtale_fil     
+                self.appointments.append(Avtale(tittel, sted, starttidspunkt, varighet))                     
+    
  
-#ok       
+       
     def writeAppointments(self):
         #open file in write mode
         with open("avtale_bok.txt", "a", encoding="UTF8") as fil:            
@@ -71,17 +71,14 @@ class AppointmentManager:
                 #En indeks på en linje                
 
                 
-#ok        
-    def findAppointmentByDate(self, dato_input=None):        
-        if dato_input == None:
-            dato_input = input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: ")        
-        liste = self.readAppointments()
+        
+    def findAppointmentByDate(self):               
+        dato_input = datetime.fromisoformat(input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: "))               
+        dato_input = dato_input.date()        
+        liste = self.appointments
         temp = []         
         for i in liste:
-            test = i.starttidspunkt
-            test= test.split()
-            dato = test[0]
-            if dato_input == dato:
+            if dato_input == i.starttidspunkt.date():
                 temp.append(i)        
         return(temp)
 
