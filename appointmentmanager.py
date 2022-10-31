@@ -82,6 +82,17 @@ class AppointmentManager:
                 temp.append(i)        
         return(temp)
 
+    def findAppointmentByKewword(self):
+        kodeord = (input("Skriv tittel du ønsker å se avtaler til: "))
+        liste= self.appointments
+        temp = []
+        for i in liste:
+            if kodeord.lower() in i.tittel.lower():
+                temp.append(i)
+        return(temp)        
+        
+#Lag en funksjon som tar inn ei liste med avtaler og en streng, og returnerer ei liste med alle avtaler hvor 
+#tittelen inneholder strengen. Dere kan bruke find-metoden for strenger til å finne en delstreng i en større streng.
 
     def listAppointments(self, heading=None):
         raise NotImplementedError
