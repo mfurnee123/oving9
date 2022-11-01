@@ -69,19 +69,20 @@ class AppointmentManager:
                 fil.write(f"{a.tittel};{a.starttidspunkt};{a.varighet};{a.sted}\n")           
         print("Avtaler er skrevet inn i Avtale-fil")        
                 #En indeks på en linje                
-
-                
+              
         
-    def findAppointmentByDate(self):               
-        dato_input = datetime.fromisoformat(input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: "))               
-        dato_input = dato_input.date()        
+    def findAppointmentByDate(self, dato=""):               
+#        dato_input = datetime.fromisoformat(input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: "))               
+        dato = datetime.fromisoformat(dato)
+        dato = dato.date()        
         liste = self.appointments
         temp = []         
         for i in liste:
-            if dato_input == i.starttidspunkt.date():
+            if dato == i.starttidspunkt.date():
                 temp.append(i)        
         return(temp)
-
+    
+    
     def findAppointmentByKeyword(self):
         kodeord = (input("Skriv tittel du ønsker å se avtaler til: "))
         temp = []
