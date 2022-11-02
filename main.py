@@ -41,15 +41,18 @@ if __name__ == "__main__":
         # Read
         if command == 0:
             manager.readAppointments()
+            print("Fil innlest")
         # Write
         elif command == 1:
             manager.writeAppointments()
+            print("Fil skrevet til")
         # Create
         elif command == 2:
             manager.newAppointment()
+            print("Avtale laget")
         # List
         elif command == 3:
-            manager.listAppointments()
+            manager.listAppointments("Tilgjengelige avtaler:")
         # Delete
         elif command == 4:
             manager.deleteAppointment()
