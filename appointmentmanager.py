@@ -71,9 +71,7 @@ class AppointmentManager:
                 #En indeks på en linje                
               
         
-    def findAppointmentByDate(self, dato=""):               
-#        dato_input = datetime.fromisoformat(input("Skriv inn dato du ønsker å se avtaler til på formen ÅÅÅÅ-MM-DD: "))               
-        dato = datetime.fromisoformat(dato)
+    def findAppointmentByDate(self, dato):               
         dato = dato.date()        
         liste = self.appointments
         temp = []         
