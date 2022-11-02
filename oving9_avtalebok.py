@@ -38,15 +38,7 @@ class Avtale:
                 print("Må være et heltall:")
         #avtale_objekt = [self.tittel, self.sted, self.starttidspunkt, self.varighet] #returner ett objekt?
         return self.tittel, self.sted, self.starttidspunkt, self.varighet
-        #return avtale_objekt
-    
-    def liste_avtaler(self, overskrift=None):
-        self.overskrift = overskrift
-        liste = []
-        
-        print (f"{self.overskrift}")
-        for i in liste:
-            print (f"{liste[i]} - {self.tittel}")
+        #return avtale_objekt   
         
         
 if __name__ == "__main__":   
