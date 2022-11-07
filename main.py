@@ -20,6 +20,7 @@ if __name__ == "__main__":
         print("5: Rediger avtale")
         print("6: Søk etter dato")
         print("7: Søk i tittel")
+        print("8: Søk i tittel")
         print("8: Avslutt programmet")
         print()
 

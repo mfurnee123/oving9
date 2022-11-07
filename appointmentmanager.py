@@ -4,6 +4,8 @@ from datetime import datetime
 class AppointmentManager:
     def __init__(self):
         self.appointments = []
+        self.locations = []
+        self.categories = []
 
     def __userIndex(self, allowExit=True):
         """
@@ -238,5 +240,3 @@ class AppointmentManager:
         
         # Do the deletion
         print(f"Avtale {self.appointments.pop(idx)} slettet.\n")
-       
-
