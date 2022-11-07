@@ -92,20 +92,29 @@ class AppointmentManager:
 #Lag en funksjon som tar inn ei liste med avtaler og en streng, og returnerer ei liste med alle avtaler hvor 
 #tittelen inneholder strengen. Dere kan bruke find-metoden for strenger til å finne en delstreng i en større streng.
 
+    def printAppointments(self, appointments, heading=None):
+        """
+        Lists appointments in a given list.
+
+        :param list appointments: A list of appointments to print.
+        :param str heading: An optional heading to print.
+        """
+        if heading is not None: print(heading)
+
+        # string padding
+        pad = lambda x : x + (" " * (max(len("indeks"), len(str(len(appointments) - 1))) - len(x)))
+
+        print(pad("Indeks"), "Avtale")
+
+        print(*[f"{pad(str(i) + ':')} {appointments[i]}" for i in range(len(appointments))], sep="\n")
+
     def listAppointments(self, heading=None):
         """
         Lists all appointments in store.
 
         :param str heading: An optional heading to print.
         """
-        if heading is not None: print(heading)
-
-        # string padding
-        pad = lambda x : x + (" " * (max(len("indeks"), len(str(len(self.appointments) - 1))) - len(x)))
-
-        print(pad("Indeks"), "Avtale")
-
-        print(*[f"{pad(str(i) + ':')} {self.appointments[i]}" for i in range(len(self.appointments))], sep="\n")
+        return self.printAppointments(self.appointments, heading)
  
     def editAppointment(self):
         # Check if there are appointments

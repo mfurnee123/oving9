@@ -72,24 +72,19 @@ if __name__ == "__main__":
                 except ValueError:
                     print("Må være et tidsobjekt på formen ÅÅÅÅ-MM-DD TT:MM:SS")
 
-            # Create a new manager to use print method
-            mgr = AppointmentManager()
 
-            mgr.appointments = manager.findAppointmentByDate(query)
+            result = manager.findAppointmentByDate(query)
 
-            if len(mgr.appointments):
-                mgr.listAppointments("Treff ved søk:")
+            if len(result):
+                manager.printAppointments(result, "Treff ved søk:")
             else:
                 print("Ingen treff")
         # Find by keyword
         elif command == 7:
-            # Create a new manager to use print method
-            mgr = AppointmentManager()
+            result = manager.findAppointmentByKeyword()
 
-            mgr.appointments = manager.findAppointmentByKeyword()
-
-            if len(mgr.appointments):
-                mgr.listAppointments("Treff ved søk:")
+            if len(result):
+                manager.printAppointments(result, "Treff ved søk:")
             else:
                 print("Ingen treff")
         # Exit
