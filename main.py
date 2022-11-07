@@ -93,7 +93,7 @@ if __name__ == "__main__":
             else:
                 print("Ingen treff")
         # Exit
-        elif command == 7:
+        elif command == 8:
             break
 
         print()
