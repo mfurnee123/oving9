@@ -20,8 +20,9 @@ if __name__ == "__main__":
         print("5: Rediger avtale")
         print("6: Søk etter dato")
         print("7: Søk i tittel")
-        print("8: Søk i tittel")
-        print("8: Avslutt programmet")
+        print("8: Lag nytt sted")
+        print("9: Lag ny kategori")
+        print("10: Avslutt programmet")
         print()
 
         # Loop until a valid input is received
@@ -37,8 +38,8 @@ if __name__ == "__main__":
                 command = None
             
             # Validate that the number is in the correct range
-            if not (0 <= command <= 8):
-                print("Feil, input må være et heltall mellom 0 og 8 inklusivt.\n")
+            if not (0 <= command <= 10):
+                print("Feil, input må være et heltall mellom 0 og 10 inklusivt.\n")
                 command = None
 
         # Execute commands
@@ -88,8 +89,14 @@ if __name__ == "__main__":
                 manager.printAppointments(result, "Treff ved søk:")
             else:
                 print("Ingen treff")
-        # Exit
+        # New location
         elif command == 8:
+            manager.newLocation()
+        # New category
+        elif command == 9:
+            manager.newCategory()
+        # Exit
+        elif command == 10:
             break
 
         print()
