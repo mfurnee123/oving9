@@ -20,9 +20,10 @@ if __name__ == "__main__":
         print("5: Rediger avtale")
         print("6: Søk etter dato")
         print("7: Søk i tittel")
-        print("8: Lag nytt sted")
-        print("9: Lag ny kategori")
-        print("10: Avslutt programmet")
+        print("8: Søk etter sted")
+        print("9: Lag nytt sted")
+        print("10: Lag ny kategori")
+        print("11: Avslutt programmet")
         print()
 
         # Loop until a valid input is received
@@ -89,14 +90,45 @@ if __name__ == "__main__":
                 manager.printAppointments(result, "Treff ved søk:")
             else:
                 print("Ingen treff")
-        # New location
+        # Find by location
         elif command == 8:
+            raise NotImplementedError()
+            # Print location list
+            maxidx = 0
+
+            print("Skriv inn indeksen til stedet du vil søke etter.")
+
+            # Loop until a valid input is received
+            idx = None
+
+            while idx == None:
+                raw = input(">")
+
+                try:
+                    idx = int(raw)
+                except:
+                    print("Feil, input må være et heltall.\n")
+                    idx = None
+                
+                # Validate that the number is in the correct range
+                if not (0 <= idx <= maxidx):
+                    print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
+                idx = None
+
+            result = manager.findAppointmentByLocation(manager.locations[idx])
+
+            if len(result):
+                manager.printAppointments(result, "Treff ved søk:")
+            else:
+                print("Ingen treff")
+        # New location
+        elif command == 9:
             manager.newLocation()
         # New category
-        elif command == 9:
+        elif command == 10:
             manager.newCategory()
         # Exit
-        elif command == 10:
+        elif command == 11:
             break
 
         print()

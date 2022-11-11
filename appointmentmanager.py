@@ -289,5 +289,14 @@ class AppointmentManager:
 
         self.locations[n.identifikasjon] = n
 
-    
+    def findAppointmentByLocation(self, location):
+        """
+        Finds all appointments where the location identificator matches.
+
+        :param Sted location: The location to look for.
+        :rtype list:
+        :returns: A list of all appointments a the specific location.
+        """
+
+        return list(filter(lambda x : x.sted.identifikasjon == location.identifikasjon, self.appointments))
   
