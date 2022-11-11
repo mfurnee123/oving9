@@ -1,11 +1,12 @@
 from oving9_avtalebok import Avtale
 from datetime import datetime
+from kategori_og_sted import *
 
 class AppointmentManager:
     def __init__(self):
         self.appointments = []
-        self.locations = []
-        self.categories = []
+        self.locations = {}
+        self.categories = {}
 
     def __userIndex(self, allowExit=True):
         """
@@ -216,9 +217,6 @@ class AppointmentManager:
 
             print()
             
-        
-
-    
     def deleteAppointment(self):
         # Check if there are appointments
         if len(self.appointments) == 0:
@@ -241,8 +239,25 @@ class AppointmentManager:
         # Do the deletion
         print(f"Avtale {self.appointments.pop(idx)} slettet.\n")
         
-        
+    def newCategory(self):
+        """
+        Creates a new category from user input and saves it to the hash map.
+        """
+        k = Kategori()
 
+        n = k.ny_kategori()
+
+        self.categories[n.identifikasjon] = n
+
+    def newLocation(self):
+        """
+        Creates a new location from user input and saves it to the hash map.
+        """
+        l = Sted()
+
+        n = l.nytt_sted()
+
+        self.locations[n.identifikasjon] = n
 
     
   
