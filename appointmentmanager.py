@@ -1,6 +1,6 @@
 from oving9_avtalebok import Avtale
 from datetime import datetime
-from kategori_og_sted import *
+from kategori_og_sted import Sted, Kategori
 
 class AppointmentManager:
     def __init__(self):
@@ -245,7 +245,6 @@ class AppointmentManager:
         Creates a new category from user input and saves it to the hash map.
         """
         k = Kategori()
-
         n = k.ny_kategori()
         self.category_list.append(n)
         self.categories[n.identifikasjon] = n        
