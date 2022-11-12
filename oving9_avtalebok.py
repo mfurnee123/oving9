@@ -14,10 +14,19 @@ class Avtale:
         self.sted = sted
         self.starttidspunkt = starttidspunkt
         self.varighet = varighet
+        self.categories = []
         
     def __str__(self):
         return f"Du har en avtale {self.tittel} kl.{self.starttidspunkt} som varer i {self.varighet}min, sted: {self.sted}"
-        
+    
+    def addCategory(self, category):
+        """
+        Appends a category to the appointment.
+
+        :param Kategori category: The category to append to the appointment.
+        """
+
+        self.categories.append(category)
     
     def ny_avtale(self):
         self.tittel = input("Tittel på avtalen: ")

@@ -1,12 +1,14 @@
 from oving9_avtalebok import Avtale
 from datetime import datetime
-from kategori_og_sted import Kategori, Sted
+from kategori_og_sted import *
 
 class AppointmentManager:
     def __init__(self):
         self.appointments = []
-        self.locations = []
-        self.categories = []
+        self.locations = {}
+        self.categories = {}
+        self.location_list = []
+        self.category_list = []
         
     def __userIndex(self, allowExit=True):
         """
@@ -216,9 +218,6 @@ class AppointmentManager:
 
             print()
             
-        
-
-    
     def deleteAppointment(self):
         # Check if there are appointments
         if len(self.appointments) == 0:
@@ -240,18 +239,20 @@ class AppointmentManager:
         
         # Do the deletion
         print(f"Avtale {self.appointments.pop(idx)} slettet.\n")
-        
-   
 
     def newCategory(self):
-        a = Kategori()
-        a = a.ny_kategori()
-        self.categories.append(a)
-        
+        """
+        Creates a new category from user input and saves it to the hash map.
+        """
+        k = Kategori()
+
+        n = k.ny_kategori()
+        self.category_list.append(n)
+        self.categories[n.identifikasjon] = n        
         
     def write_category(self):
         with open("kategori.txt", "a", encoding="UTF8") as fil:
-            for a in self.categories:           
+            for a in self.category_list:           
                 fil.write(f"{a.identifikasjon};{a.navn};{a.prioritet}\n")           
         print("Avtaler er skrevet inn i Kategori-fil")                
                
@@ -268,23 +269,29 @@ class AppointmentManager:
                 except ValueError:
                     prioritet= None
                 linje = fil.readline()                    
-                self.categories.append(Kategori(identifikasjon, navn, prioritet))                     
+                self.category_list.append(Kategori(identifikasjon, navn, prioritet))                     
 
     def print_categories(self):
         t=0
-        for a in self.categories:           
+        for a in self.category_list:           
             print(f"Indeks:{t}, Kategori: {a}")
-            t +=1
- 
-    def new_location(self):
-        a = Sted()
-        a = a.nytt_sted()
-        self.locations.append(a)
+            t +=1        
         
+
+
+    def newLocation(self):
+        """
+        Creates a new location from user input and saves it to the hash map.
+        """
+        l = Sted()
+
+        n = l.nytt_sted()
+        self.location_list.append(n)
+        self.locations[n.identifikasjon] = n
         
     def write_location(self):
         with open("sted.txt", "a", encoding="UTF8") as fil:
-            for a in self.locations:           
+            for a in self.location_list:           
                 fil.write(f"{a.identifikasjon};{a.navn};{a.adresse}\n")           
         print("Avtaler er skrevet inn i sted-fil")        
                
@@ -298,11 +305,10 @@ class AppointmentManager:
                 navn = linje[1]
                 adresse = linje[2]
                 linje = fil.readline()                    
-                self.locations.append(Sted(identifikasjon, navn, adresse)) 
+                self.location_list.append(Sted(identifikasjon, navn, adresse)) 
                 
-
     def print_locations(self):
-        for a in self.locations:           
+        for a in self.location_list:           
             print(f"Sted: {a}")
             
   
