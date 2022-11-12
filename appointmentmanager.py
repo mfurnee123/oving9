@@ -1,12 +1,13 @@
 from oving9_avtalebok import Avtale
 from datetime import datetime
+from kategori_og_sted import Kategori, Sted
 
 class AppointmentManager:
     def __init__(self):
         self.appointments = []
         self.locations = []
         self.categories = []
-
+        
     def __userIndex(self, allowExit=True):
         """
         Gets an index for an appointment from user input from STDIN.
@@ -90,9 +91,8 @@ class AppointmentManager:
             if kodeord.lower() in i.tittel.lower():
                 temp.append(i)
         return(temp)        
+
         
-#Lag en funksjon som tar inn ei liste med avtaler og en streng, og returnerer ei liste med alle avtaler hvor 
-#tittelen inneholder strengen. Dere kan bruke find-metoden for strenger til å finne en delstreng i en større streng.
 
     def printAppointments(self, appointments, heading=None):
         """
@@ -241,8 +241,68 @@ class AppointmentManager:
         # Do the deletion
         print(f"Avtale {self.appointments.pop(idx)} slettet.\n")
         
+   
+
+    def newCategory(self):
+        a = Kategori()
+        a = a.ny_kategori()
+        self.categories.append(a)
         
+        
+    def write_category(self):
+        with open("kategori.txt", "a", encoding="UTF8") as fil:
+            for a in self.categories:           
+                fil.write(f"{a.identifikasjon};{a.navn};{a.prioritet}\n")           
+        print("Avtaler er skrevet inn i Kategori-fil")                
+               
 
+    def read_category(self):
+        with open("kategori.txt", "r", encoding="UTF8") as fil:
+            linje = fil.readline()
+            while linje!="":                            
+                linje = linje.split(";")
+                identifikasjon = linje[0]
+                navn = linje[1]
+                try:
+                    prioritet = int(linje[2])
+                except ValueError:
+                    prioritet= None
+                linje = fil.readline()                    
+                self.categories.append(Kategori(identifikasjon, navn, prioritet))                     
 
-    
+    def print_categories(self):
+        t=0
+        for a in self.categories:           
+            print(f"Indeks:{t}, Kategori: {a}")
+            t +=1
+ 
+    def new_location(self):
+        a = Sted()
+        a = a.nytt_sted()
+        self.locations.append(a)
+        
+        
+    def write_location(self):
+        with open("sted.txt", "a", encoding="UTF8") as fil:
+            for a in self.locations:           
+                fil.write(f"{a.identifikasjon};{a.navn};{a.adresse}\n")           
+        print("Avtaler er skrevet inn i sted-fil")        
+               
+
+    def read_locations(self):
+        with open("sted.txt", "r", encoding="UTF8") as fil:
+            linje = fil.readline()
+            while linje!="":                            
+                linje = linje.split(";")
+                identifikasjon = linje[0]
+                navn = linje[1]
+                adresse = linje[2]
+                linje = fil.readline()                    
+                self.locations.append(Sted(identifikasjon, navn, adresse)) 
+                
+
+    def print_locations(self):
+        for a in self.locations:           
+            print(f"Sted: {a}")
+            
   
