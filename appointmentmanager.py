@@ -146,6 +146,7 @@ class AppointmentManager:
         newLocation = None
         newTime = None
         newDuration = None
+        newCats = []
             
 
         # Loop unit broken
@@ -155,8 +156,9 @@ class AppointmentManager:
             print("1: Sted")
             print("2: Starttidspunkt")
             print("3: Varighet")
-            print("4: Lagre")
-            print("5: Avslutt uten å lagre")
+            print("4: Legg til kategori")
+            print("5: Lagre")
+            print("6: Avslutt uten å lagre")
             # Loop until a valid input is received
             command = None
 
@@ -170,13 +172,13 @@ class AppointmentManager:
                     command = None
                 
                 # Validate that the number is in the correct range
-                if not (0 <= command <= 5):
-                    print("Feil, input må være et heltall mellom 0 og 5 inklusivt.\n")
+                if not (0 <= command <= 6):
+                    print("Feil, input må være et heltall mellom 0 og 6 inklusivt.\n")
                     command = None
           
 
             # Saving
-            if command == 4:
+            if command == 5:
                 if newTitle is not None:
                     self.appointments[idx].tittel = newTitle
                 if newLocation is not None:
@@ -185,11 +187,12 @@ class AppointmentManager:
                     self.appointments[idx].starttidspunkt = newTime
                 if newDuration is not None:
                     self.appointments[idx].varighet = newDuration
+                self.appointments[idx].categories += list(filter(lambda x : x not in self.appointments[idx].categories, newCats))
 
                 print("Avtale oppdatert.")
                 return
             # Exit
-            elif command == 5:
+            elif command == 6:
                 print("Endringer forkastet.")
                 return
             
@@ -215,6 +218,33 @@ class AppointmentManager:
                         break
                     except ValueError:
                         print("Må være et heltall")
+            # Category
+            elif command == 4:
+                # TODO Print category list
+                raise NotImplementedError()
+                maxidx = 0
+
+                print("Skriv inn indeksen til kategorien du vil legge til.")
+
+                # Loop until a valid input is received
+                catidx = None
+
+                while catidx == None:
+                    raw = input(">")
+
+                    try:
+                        catidx = int(raw)
+                    except:
+                        print("Feil, input må være et heltall.\n")
+                        catidx = None
+                    
+                    # Validate that the number is in the correct range
+                    if not (0 <= catidx <= maxidx):
+                        print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
+                    catidx = None
+
+                newCats.append(self.categories[catidx])
+
 
             print()
             
@@ -310,4 +340,15 @@ class AppointmentManager:
         for a in self.location_list:           
             print(f"Sted: {a}")
             
+
+    def findAppointmentByLocation(self, location):
+        """
+        Finds all appointments where the location identificator matches.
+
+        :param Sted location: The location to look for.
+        :rtype list:
+        :returns: A list of all appointments a the specific location.
+        """
+
+        return list(filter(lambda x : x.sted.identifikasjon == location.identifikasjon, self.appointments))
   
