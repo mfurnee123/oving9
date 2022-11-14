@@ -92,9 +92,16 @@ if __name__ == "__main__":
                 print("Ingen treff")
         # Find by location
         elif command == 8:
-            raise NotImplementedError()
+            # Check that there are locations
+            if not len(manager.location_list):
+                print("Du har ingen steder")
+                continue
+
+            print("Tilgjengelige steder")
+            manager.print_locations()
+
             # Print location list
-            maxidx = 0
+            maxidx = len(manager.location_list) - 1
 
             print("Skriv inn indeksen til stedet du vil søke etter.")
 

@@ -5,8 +5,6 @@ from kategori_og_sted import Sted, Kategori
 class AppointmentManager:
     def __init__(self):
         self.appointments = []
-        self.locations = {}
-        self.categories = {}
         self.location_list = []
         self.category_list = []
         
@@ -220,9 +218,14 @@ class AppointmentManager:
                         print("Må være et heltall")
             # Category
             elif command == 4:
-                # TODO Print category list
-                raise NotImplementedError()
-                maxidx = 0
+                if not len(self.category_list):
+                    print("Du har ingen kategorier")
+                    continue
+
+                print("Tilgjengelige kategorier:")
+                self.print_categories()
+
+                maxidx = len(self.category_list) - 1
 
                 print("Skriv inn indeksen til kategorien du vil legge til.")
 
@@ -243,7 +246,7 @@ class AppointmentManager:
                         print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
                     catidx = None
 
-                newCats.append(self.categories[catidx])
+                newCats.append(self.category_list[catidx])
 
 
             print()
@@ -277,7 +280,6 @@ class AppointmentManager:
         k = Kategori()
         n = k.ny_kategori()
         self.category_list.append(n)
-        self.categories[n.identifikasjon] = n        
         
     def write_category(self):
         with open("kategori.txt", "a", encoding="UTF8") as fil:
@@ -316,7 +318,6 @@ class AppointmentManager:
 
         n = l.nytt_sted()
         self.location_list.append(n)
-        self.locations[n.identifikasjon] = n
         
     def write_location(self):
         with open("sted.txt", "a", encoding="UTF8") as fil:
