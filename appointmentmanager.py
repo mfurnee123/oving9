@@ -386,8 +386,13 @@ class AppointmentManager:
                 self.location_list.append(Sted(identifikasjon, navn, adresse)) 
                 
     def print_locations(self):
-        for a in self.location_list:           
-            print(f"Sted: {a}")
+        # string padding
+        pad = lambda x : x + (" " * (max(len("indeks"), len(str(len(self.location_list) - 1))) - len(x)))
+
+        print(pad("Indeks"), "Sted")
+
+        print(*[f"{pad(str(i) + ':')} {self.location_list[i]}" for i in range(len(self.location_list))], sep="\n")
+
             
 
     def findAppointmentByLocation(self, location):
