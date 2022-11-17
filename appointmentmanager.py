@@ -247,7 +247,32 @@ class AppointmentManager:
                 newTitle = input("Ny titel på avtalen: ")
             # Location
             elif command == 1:
-                newLocation = input("Nytt sted til avtalen: ")
+                print("Tilgjengelige steder")
+                self.print_locations()
+
+                # Print location list
+                maxidx = len(self.location_list) - 1
+
+                print("Skriv inn indeksen til stedet du vil bruke")
+
+                # Loop until a valid input is received
+                idx = None
+
+                while idx == None:
+                    raw = input(">")
+
+                    try:
+                        idx = int(raw)
+                    except:
+                        print("Feil, input må være et heltall.\n")
+                        idx = None
+                    
+                    # Validate that the number is in the correct range
+                    if not (0 <= idx <= maxidx):
+                        print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
+                        idx = None
+                
+                newLocation = self.location_list[idx]
             # Time
             elif command == 2:
                 while True:
