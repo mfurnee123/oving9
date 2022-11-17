@@ -122,7 +122,7 @@ if __name__ == "__main__":
                     print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
                     idx = None
 
-            result = manager.findAppointmentByLocation(manager.locations[idx])
+            result = manager.findAppointmentByLocation(manager.location_list[idx])
 
             if len(result):
                 manager.printAppointments(result, "Treff ved søk:")
