@@ -120,7 +120,7 @@ if __name__ == "__main__":
                 # Validate that the number is in the correct range
                 if not (0 <= idx <= maxidx):
                     print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
-                idx = None
+                    idx = None
 
             result = manager.findAppointmentByLocation(manager.locations[idx])
 

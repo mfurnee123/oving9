@@ -43,8 +43,56 @@ class AppointmentManager:
         """
         Creates a new appointment from user input from STDIN.
         """
+        # Exit if no locations are present
+        if not len(self.location_list):
+            print("Du har ingen steder, lag sted først")
+            return
+
         a = Avtale()
-        a.ny_avtale()              
+
+        a.tittel = input("Tittel på avtalen: ")
+        
+        print("Tilgjengelige steder")
+        self.print_locations()
+
+        # Print location list
+        maxidx = len(self.location_list) - 1
+
+        print("Skriv inn indeksen til stedet du vil bruke")
+
+        # Loop until a valid input is received
+        idx = None
+
+        while idx == None:
+            raw = input(">")
+
+            try:
+                idx = int(raw)
+            except:
+                print("Feil, input må være et heltall.\n")
+                idx = None
+            
+            # Validate that the number is in the correct range
+            if not (0 <= idx <= maxidx):
+                print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
+                idx = None
+        
+        a.sted = self.location_list[idx]
+      
+        while True:
+            try:
+                a.starttidspunkt = datetime.fromisoformat(input("Sett inn en tid på formen ÅÅÅÅ-MM-DD TT:MM:SS: "))
+                break
+            except ValueError:
+                print("Må være et tidsobjekt på formen ÅÅÅÅ-MM-DD TT:MM:SS")  
+        
+        while True:
+            try:
+                a.varighet = int(input("Varigheten i minutter til møtet (heltall): "))
+                break
+            except ValueError:
+                print("Må være et heltall:")
+               
         # The ny_avtale method is an instance method of the Avtale class. This is not intuitive, and should preferably be moved here.
         self.appointments.append(a)
 
@@ -244,7 +292,7 @@ class AppointmentManager:
                     # Validate that the number is in the correct range
                     if not (0 <= catidx <= maxidx):
                         print(f"Feil, input må være et heltall mellom 0 og {maxidx} inklusivt.\n")
-                    catidx = None
+                        catidx = None
 
                 newCats.append(self.category_list[catidx])
 
