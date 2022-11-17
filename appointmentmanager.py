@@ -97,27 +97,46 @@ class AppointmentManager:
         self.appointments.append(a)
 
     def readAppointments(self):
+        # Start by reading categories and locations
+        self.read_category()
+        self.read_locations()
+
         with open("avtale_bok.txt", "r", encoding="UTF8") as fil:
             linje = fil.readline()
             while linje!="":                            
                 linje = linje.split(";")
                 tittel = linje[0]
-                sted = linje[1]
-                starttidspunkt = linje[2]
+                sted = self.location_list[int(linje[3])]
+                starttidspunkt = datetime.fromisoformat(linje[1])
                 try:
-                    varighet = int(linje[3])
+                    varighet = int(linje[2])
                 except ValueError:
                     varighet = None
+
+                a = Avtale(tittel, sted, starttidspunkt, varighet)
+
+                for i in linje[4].strip().split(","):
+                    try:
+                        i = int(i)
+                    except:
+                        continue
+                    a.addCategory(self.category_list[i])
+                                    
                 linje = fil.readline()                    
-                self.appointments.append(Avtale(tittel, sted, starttidspunkt, varighet))                     
+                self.appointments.append(a)                     
     
  
        
     def writeAppointments(self):
+        # Start by saving categories and locations
+        self.write_category()
+        self.write_location()
+
         #open file in write mode
         with open("avtale_bok.txt", "a", encoding="UTF8") as fil:            
             for a in self.appointments:
-                fil.write(f"{a.tittel};{a.starttidspunkt};{a.varighet};{a.sted}\n")           
+                cat = map(self.category_list.index, a.categories)
+                fil.write(f"{a.tittel};{a.starttidspunkt};{a.varighet};{self.location_list.index(a.sted)};{','.join(cat)}\n")           
         print("Avtaler er skrevet inn i Avtale-fil")        
                 #En indeks på en linje                
               
