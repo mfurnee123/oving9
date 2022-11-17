@@ -39,8 +39,8 @@ if __name__ == "__main__":
                 command = None
             
             # Validate that the number is in the correct range
-            if not (0 <= command <= 10):
-                print("Feil, input må være et heltall mellom 0 og 10 inklusivt.\n")
+            if not (0 <= command <= 11):
+                print("Feil, input må være et heltall mellom 0 og 11 inklusivt.\n")
                 command = None
 
         # Execute commands
